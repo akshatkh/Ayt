@@ -5,10 +5,17 @@ import org.jsoup.select.Elements;
 import java.util.*;
 public class RhymeGame{
 	String word;
-	ArrayList<String> rhymes=new ArrayList<String>();
+	ArrayList<String> rhymes = new ArrayList<String>();
+	/**
+	 * Paramter constructor to initialize the word variable
+	 * @param w - parameter to initialize word
+	 */
 	public RhymeGame(String w) {
 		word=w;
 	}
+	/**
+	 * Method create the array list of rhyming words;
+	 */
 	public void getArray() {
 		try {
 			
@@ -34,6 +41,10 @@ public class RhymeGame{
 		}
 	}
 	
+	/**
+	 * 
+	 * @return random word
+	 */
 	public static String getRandomWord() {
 		try {
 			Document doc = Jsoup.connect("https://randomword.com/").userAgent("Chrome/74.0.3729.131").get();
@@ -48,9 +59,6 @@ public class RhymeGame{
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 			return "a";
-		}
-		
-	}
-	
-	
+		}	
+	}	
 }
