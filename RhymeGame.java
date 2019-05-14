@@ -3,25 +3,22 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.*;
+import java.io.*;
+
 public class RhymeGame{
 	String word;
-	ArrayList<String> rhymes = new ArrayList<String>();
-	/**
-	 * Paramter constructor to initialize the word variable
-	 * @param w - parameter to initialize word
-	 */
+	
+	ArrayList<String> rhymes=new ArrayList<String>();
 	public RhymeGame(String w) {
 		word=w;
 	}
-	/**
-	 * Method create the array list of rhyming words;
-	 */
 	public void getArray() {
 		try {
 			
 			String url="https://www.rhymezone.com/r/rhyme.cgi?Word="+word+"&typeofrhyme=perfect&org1=syl&org2=l&org3=y";
 			
 			Document doc = Jsoup.connect(url).userAgent("Chrome/74.0.3729.131").get();
+
 			Elements temp=doc.select("a");
 			for(Element a:temp) {
 				String b=a.text();
@@ -34,31 +31,36 @@ public class RhymeGame{
 				}
 				
 			}
-		System.out.println(rhymes);
+		//System.out.println(rhymes);
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
-	/**
-	 * 
-	 * @return random word
-	 */
 	public static String getRandomWord() {
+		String word="";
 		try {
-			Document doc = Jsoup.connect("https://randomword.com/").userAgent("Chrome/74.0.3729.131").get();
-			Elements temp=doc.select("div");
-			for(Element a:temp) {
-				if(a.attr("id").equals("random_word")) {
-					return a.text();
-				}
+			Scanner in=new Scanner(new File("words.txt"));
+			Random rand=new Random();
+			int a=rand.nextInt(10000);
+			for(int i=0; i<a;i++) {
+				in.next();
+			} 
+			word=in.next();
+			while((word.length()<5||word.contains("fuck")||word.contains("shit")||word.contains("pussy"))) {
+				word=in.next();
 			}
-			return "a";
-		}
+			return word;
+			
+					
+			}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 			return "a";
-		}	
-	}	
+		}
+		
+	}
+	
+	
 }
