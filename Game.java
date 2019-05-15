@@ -10,22 +10,27 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
+import java.util.*;
+import java.io.*;
 public class Game {
 	
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-	JLabel titlerepectLabel, cloutLabel, cloutLabelNumber, repectLabel, repectLabelName;
+	JPanel titlePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+	JLabel titleLabel, cloutLabel, cloutLabelNumber, repectLabel, repectLabelNumber, cashLabel, cashLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
+	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 15);
 	JButton startButton, choice1, choice2, choice3, choice4;
 	JTextArea mainTextArea;
 	int clout , respect, cash;
-	String name, position;
+	String readiness , position;
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
+	
+	
+
 
 
 	public static void main(String[] args) {
@@ -43,34 +48,34 @@ public class Game {
 		window.setVisible(true);
 		con = window.getContentPane();
 		
-		titleNamePanel = new JPanel();
-		titleNamePanel.setBounds(100, 100, 600, 150);
-		titleNamePanel.setBackground(Color.black);
-		titlerepectLabel = new JLabel("ADVENTURE");
-		titlerepectLabel.setForeground(Color.white);
-		titlerepectLabel.setFont(titleFont);	
+		titlePanel = new JPanel();
+		titlePanel.setBounds(100, 100, 600, 150);
+		titlePanel.setBackground(Color.black);
+		titleLabel = new JLabel("AYT");
+		titleLabel.setForeground(Color.white);
+		titleLabel.setFont(titleFont);	
 		
 		startButtonPanel = new JPanel();
 		startButtonPanel.setBounds(300, 400, 200, 100);
 		startButtonPanel.setBackground(Color.black);
 		
 		startButton = new JButton("START");
-		startButton.setBackground(Color.black);
-		startButton.setForeground(Color.white);
+		startButton.setBackground(Color.white);
+		startButton.setForeground(Color.green);
 		startButton.setFont(normalFont);
 		startButton.addActionListener(tsHandler);
 		startButton.setFocusPainted(false);
 		
-		titleNamePanel.add(titlerepectLabel);
+		titlePanel.add(titleLabel);
 		startButtonPanel.add(startButton);
 		
-		con.add(titleNamePanel);
+		con.add(titlePanel);
 		con.add(startButtonPanel);
 	}
 	
 	public void createGameScreen(){
 		
-		titleNamePanel.setVisible(false);
+		titlePanel.setVisible(false);
 		startButtonPanel.setVisible(false);
 		
 		mainTextPanel = new JPanel();
@@ -78,7 +83,7 @@ public class Game {
 		mainTextPanel.setBackground(Color.black);
 		con.add(mainTextPanel);
 		
-		mainTextArea = new JTextArea("This is the main text are. This game is going to be great. I'm sure of it!!!!!!!");
+		mainTextArea = new JTextArea("AYT");
 		mainTextArea.setBounds(100, 100, 600, 250);
 		mainTextArea.setBackground(Color.black);
 		mainTextArea.setForeground(Color.white);
@@ -94,32 +99,32 @@ public class Game {
 		
 		choice1 = new JButton("Choice 1");
 		choice1.setBackground(Color.black);
-		choice1.setForeground(Color.white);
-		choice1.setFont(normalFont);
+		choice1.setForeground(Color.green);
+		choice1.setFont(buttonFont);
 		choice1.setFocusPainted(false);
 		choice1.addActionListener(choiceHandler);
 		choice1.setActionCommand("c1");
 		choiceButtonPanel.add(choice1);
 		choice2 = new JButton("Choice 2");
 		choice2.setBackground(Color.black);
-		choice2.setForeground(Color.white);
-		choice2.setFont(normalFont);
+		choice2.setForeground(Color.green);
+		choice2.setFont(buttonFont);
 		choice2.setFocusPainted(false);
 		choice2.addActionListener(choiceHandler);
 		choice2.setActionCommand("c2");
 		choiceButtonPanel.add(choice2);
 		choice3 = new JButton("Choice 3");
 		choice3.setBackground(Color.black);
-		choice3.setForeground(Color.white);
-		choice3.setFont(normalFont);
+		choice3.setForeground(Color.green);
+		choice3.setFont(buttonFont);
 		choice3.setFocusPainted(false);
 		choice3.addActionListener(choiceHandler);
 		choice3.setActionCommand("c3");
 		choiceButtonPanel.add(choice3);
 		choice4 = new JButton("Choice 4");
 		choice4.setBackground(Color.black);
-		choice4.setForeground(Color.white);
-		choice4.setFont(normalFont);
+		choice4.setForeground(Color.green);
+		choice4.setFont(buttonFont);
 		choice4.setFocusPainted(false);
 		choice4.addActionListener(choiceHandler);
 		choice4.setActionCommand("c4");
@@ -142,148 +147,164 @@ public class Game {
 		repectLabel.setFont(normalFont);
 		repectLabel.setForeground(Color.white);
 		playerPanel.add(repectLabel);
-		repectLabelName = new JLabel();
-		repectLabelName.setFont(normalFont);
-		repectLabelName.setForeground(Color.white);
-		playerPanel.add(repectLabelName);
+		repectLabelNumber = new JLabel();
+		repectLabelNumber.setFont(normalFont);
+		repectLabelNumber.setForeground(Color.white);
+		playerPanel.add(repectLabelNumber);
 		cashLabel = new JLabel("cash:");
 		cashLabel.setFont(normalFont);
 		cashLabel.setForeground(Color.white);
 		playerPanel.add(cashLabel);
-		cashLabelName = new JLabel();
-		cashLabelName.setFont(normalFont);
-		cashLabelName.setForeground(Color.white);
-		playerPanel.add(cashLabelName);
+		cashLabelNumber = new JLabel();
+		cashLabelNumber.setFont(normalFont);
+		cashLabelNumber.setForeground(Color.white);
+		playerPanel.add(cashLabelNumber);
 
 		playerSetup();
 
 	}
 	public void playerSetup(){
-		clout  = 15;
-		respect = 20;
-		name = "Knife";
-		repectLabelName.setText(name);
-		cloutLabelNumber.setText("" + clout );
-		
-		townGate();
+		clout  =  0;
+		respect = 0;
+		cash = 0;
+		readiness  = "notready";
+		cloutLabelNumber.setText("" + clout);
+		repectLabelNumber.setText("" + respect);
+		cashLabelNumber.setText("" + cash);	
+		introduction();
 	}
-	public void townGate(){
-		position = "townGate";
-		mainTextArea.setText("You are at the gate of the town. \nA guard is standing in front of you. \n\nWhat do you do?");		
-		choice1.setText("Talk to the guard");
-		choice2.setText("Attack the guard");
-		choice3.setText("Leave");
-		choice4.setText("");
-	}
-	public void talkGuard(){
-		position = "talkGuard";
-		mainTextArea.setText("Guard: Hello stranger. I have never seen your face. \nI'm sorry but we cannot let a stranger enter our town.");
-		choice1.setText(">");
-		choice2.setText("");
+	
+	public void introduction(){
+		position = "introduction";
+		mainTextArea.setText("What’s good G? You the one who sent us that trash demo?");		
+		choice1.setText("Na G, all my tracks are heat.");
+		choice2.setText("Watchu mean dawg you tryna start sum?");
 		choice3.setText("");
 		choice4.setText("");
 	}
-	public void attackGuard(){
-		position = "attackGuard";
-		mainTextArea.setText("Guard: Hey don't be stupid!\n\nThe guard fought back and hit you hard.\n(You receive 3 damage)");
-		clout  = clout  -3;
-		cloutLabelNumber.setText(""+clout );
-		choice1.setText(">");
-		choice2.setText("");
+	public void ifA(){
+		position = "ifA";
+		mainTextArea.setText("I was just playing dawg, I ain’t even check you out yet, play something smt for me.");
+		choice1.setText("Ayt dawg lemme play a lil sum for you, I call it “Chutney”. This goes B.");
+		choice2.setText("Yea I knew you wasn’t no stupid. Lemme play a lil sum I call “Chutney");
 		choice3.setText("");
 		choice4.setText("");
 	}
-	public void crossRoad(){
-		position = "crossRoad";
-		mainTextArea.setText("You are at a crossroad.\nIf you go south, you will go back to the town.");
-		choice1.setText("Go north");
-		choice2.setText("Go east");
-		choice3.setText("Go south");
-		choice4.setText("Go west");
-	}
-	public void north(){
-		position = "north";
-		mainTextArea.setText("There is a river. \nYou drink the water and rest at the riverside. \n\n(Your HP is recovered by 2)");
-		clout  = clout  + 2;
-		cloutLabelNumber.setText(""+clout );
-		choice1.setText("Go south");
-		choice2.setText("");
-		choice3.setText("");
-		choice4.setText("");		
-	}
-	public void east(){
-		position = "east";
-		mainTextArea.setText("You walked into a forest and found a Long Sword!\n\n(You obtained a Long Sword)");
-		name = "Long Sword";
-		repectLabelName.setText(name);
-		choice1.setText("Go west");
-		choice2.setText("");
-		choice3.setText("");
-		choice4.setText("");
-		
-	}
-	public void west(){
-		position = "west";
-		mainTextArea.setText("You encounter a goblin!");
-		choice1.setText("Fight");
-		choice2.setText("Run");
+	public void ifB(){
+		position = "ifB";
+		mainTextArea.setText("You buggin b, I ain’t even listen to it yet but On Moms it's prolly trash");
+		choice1.setText("Watchu tryna say dawg? ayt squad? Who names themselves ayt squad my guy? You calling my stuff trash?");
+		choice2.setText("Lemme prove you wrong real quick Symere. Lemme play this banger me and my boy Wacko Swami put together.");
 		choice3.setText("");
 		choice4.setText("");
 	}
-	public void fight(){
-		position = "fight";
-		mainTextArea.setText("Monter HP: " + respect + "\n\nWhat do you do?");
-		choice1.setText("Attack");
-		choice2.setText("Run");
-		choice3.setText("");
-		choice4.setText("");
+	public void ifAChoiceOne(){
+		position = "ifAChoiceOne";
+		
+		mainTextArea.setText("Symere: Yo this fire fam. You should come into the studio with us one day. ayt squad could use another member.\n" + 
+				"You: Yea, I’ll hit the stu witchu tmrw. I’m tryna get some battle rap in right now though. You down?  \n" + 
+				"Symere: No doubt, I’ll beat you.\n" + "");
+
+		choice1.setText("Battle");
+		choice2.setText("Battle");
+		choice3.setText("Battle");
+		choice4.setText("Battle");		
 	}
-	public void playerAttack(){
-		position = "playerAttack";
+	public void ifAChoiceTwo(){
+		position = "ifAChoiceTwo";
 		
-		int playerDamage = 0;
+		mainTextArea.setText("Symere: Ima ignore that slight cause yo demo fire. You should hit the studio with us one day. \n" + 
+				"You: Yo how about this, we battle right here and If I win you let me join ayt squad.\n" + 
+				"Symere: Hahah you think you can beat ME? Bet\n" + "");
 		
-		if(name.equals("Knife")){
-			playerDamage = new java.util.Random().nextInt(3);
-		}
-		else if(name.equals("Long Sword")){
-			playerDamage = new java.util.Random().nextInt(12); 
-		}
-		
-		mainTextArea.setText("You attacked the monster and gave " + playerDamage + " damage!");
-		
-		respect = respect - playerDamage;
-		
-		choice1.setText(">");
-		choice2.setText("");
-		choice3.setText("");
-		choice4.setText("");		
+		choice1.setText("Battle");
+		choice2.setText("Battle");
+		choice3.setText("Battle");
+		choice4.setText("Battle");		
 	}
-	public void monsterAttack(){
-		position = "monsterAttack";
+	public void ifBChoiceOne(){
+		position = "ifBChoiceOne";
 		
-		int monsterDamage = 0;
+		mainTextArea.setText("Symere: Dawg get outta here. You tryna catch this fade huh I’ll bet a band right now that you can’t take me in a cypher. \n" + 
+				"You: Bet let’s do it right here right now.\n" + 
+				"Symere: Bet if you win I’ll even let you join Ayt Squad.\n" + "");
 		
-		monsterDamage = new java.util.Random().nextInt(6); 
 		
-		mainTextArea.setText("The monster attacked you and gave " + monsterDamage + " damage!");
+		choice1.setText("Battle");
+		choice2.setText("Battle");
+		choice3.setText("Battle");
+		choice4.setText("Battle");		
+	}
+	public void ifBChoiceTwo(){
+		position = "ifBChoiceTwo";
 		
-		clout  = clout  - monsterDamage;
-		cloutLabelNumber.setText(""+clout );
+		mainTextArea.setText("Symere: Yo this is aight but idk how much of it is you and how much of it is ya boy.\n" + 
+				"You: How about this, lemme just hit you with this freestyle real quick. One band  says I can out rap you. \n" + 
+				"Symere: Hahah you think you can beat ME? Bet if you win I’ll even let you join Ayt Squad.\n" + "");
 		
-		choice1.setText(">");
-		choice2.setText("");
-		choice3.setText("");
-		choice4.setText("");	
+		choice1.setText("Battle");
+		choice2.setText("Battle");
+		choice3.setText("Battle");
+		choice4.setText("Battle");		
+	}
+	public void battle(){
+		position = "battle";
+		int count = 0;
+		
+			while(count<10) {
+				String b=RhymeGame.getRandomWord();
+				RhymeGame a=new RhymeGame(b);
+				
+				System.out.println(b);
+				a.getArray();
+				ArrayList rhymes=a.rhymes;
+				Scanner in= new Scanner(System.in);
+				if(rhymes.contains(in.nextLine().toLowerCase().replaceAll(" ","" ).replaceAll("'","").replaceAll("-", ""))) {
+					System.out.println("Thats a rhyme!");
+					count++;
+				}
+				else {
+					System.out.println("Lmao Nope!");
+					count--;
+				}
+			}
+
+		
+		mainTextArea.setText("Battle Stage");
+		
+
+		
+		choice1.setText("Continue");
+		choice2.setText("Replay Introduction");
+		choice3.setText("Replay Battle");
+		choice4.setText("Quit");		
+	}
+	public void continued(){
+		position = "continued";
+		
+		mainTextArea.setText("See Ya");			
+		
+	}
+	public void replayIntroduction(){
+		position = "replayIntroduction";
+		introduction();	
+	}
+	public void replayBattle(){
+		position = "replayBattle";
+		battle();		
+	}
+	public void quit(){
+		position = "quit";
+		
+		mainTextArea.setText("See Ya");	
+		System.exit(0);
 	}
 	public void win(){
 		position = "win";
 		
-		mainTextArea.setText("You defeated the monster!\nThe monster dropped a ring!\n\n(You obtained a Silver Ring)");
+		mainTextArea.setText("You defeated the monster!\nThe monster dropped a ring!\n\n(You obtained a Silver Ring)");		
 		
-		cash = 1;
-		
-		choice1.setText("Go east");
+		choice1.setText("");
 		choice2.setText("");
 		choice3.setText("");
 		choice4.setText("");
@@ -298,35 +319,8 @@ public class Game {
 		choice2.setText("");
 		choice3.setText("");
 		choice4.setText("");
-		choice1.setVisible(false);
-		choice2.setVisible(false);
-		choice3.setVisible(false);
-		choice4.setVisible(false);
-	}
-	public void ending(){
-		position = "ending";
-		
-		mainTextArea.setText("Guard: Oh you killed that goblin!?\nThank you so much. You are true hero!\nWelcome to our town!\n\n");
-		
-		choice1.setText("");
-		choice2.setText("");
-		choice3.setText("");
-		choice4.setText("");
-		choice1.setVisible(false);
-		choice2.setVisible(false);
-		choice3.setVisible(false);
-		choice4.setVisible(false);
-	}
+	}	
 
-
-
-	
-	
-	
-		
-	
-	
-	
 	public class TitleScreenHandler implements ActionListener{
 		
 		public void actionPerformed(ActionEvent event){
@@ -341,94 +335,75 @@ public class Game {
 			String yourChoice = event.getActionCommand();
 			
 			switch(position){
-			case "townGate":
+			case "introduction":
 				switch(yourChoice){
-				case "c1": 
-					if(cash==1){
-						ending();
-					}
-					else{
-						talkGuard();
-					}
-					break;
-				case "c2": attackGuard();break;
-				case "c3": crossRoad();break;
+				case "c1": ifA(); clout+=15; cloutLabelNumber.setText(""+clout); break;
+				case "c2": ifB();break;
 				}
 				break;
-			case "talkGuard":
+			case "ifA":
 				switch(yourChoice){
-				case "c1": townGate(); break;
+				case "c1": ifAChoiceOne(); 
+				try {
+				ausdio a=new ausdio("Birds drums 2.wav");
+				a.playAudio();
 				}
-				break;
-			case "attackGuard":
-				switch(yourChoice){
-				case "c1": townGate(); break;
+				catch(Exception e) {
+					System.out.println(e.getMessage());
 				}
-				break;
-			case "crossRoad":
-				switch(yourChoice){
-				case "c1": north(); break;
-				case "c2": east();break;
-				case "c3": townGate(); break;
-				case "c4": west();break;
-				}
-				break;
-			case "north":
-				switch(yourChoice){
-				case "c1": crossRoad(); break;
-				}
-				break;
-			case "east":
-				switch(yourChoice){
-				case "c1": crossRoad(); break;
-				}
-				break;
-			case "west":
-				switch(yourChoice){
-				case "c1": fight(); break;
-				case "c2": crossRoad(); break;
-				}
-				break;
-			case "fight":
-				switch(yourChoice){
-				case "c1": playerAttack();break;
-				case "c2": crossRoad(); break;
-				}
-				break;
-			case "playerAttack":
-				switch(yourChoice){
-				case "c1": 
-					if(respect<1){
-						win();
-					}
-					else{
-						monsterAttack();
-					}
-					break;
-				}
-				break;
-			case "monsterAttack":
-				switch(yourChoice){
-				case "c1": 
-					if(clout<1){
-						lose();
-					}
-					else{
-						fight();
-					}
-					break;
-				}
-				break;
-			case "win":
-				switch(yourChoice){
-				case "c1": crossRoad();
-				}
-				break;
 				
+				break;
+				case "c2": ifAChoiceTwo();break;
+				}
+				break;
+			case "ifB":
+				switch(yourChoice){
+				case "c1": ifBChoiceOne(); break;
+				case "c2": ifBChoiceTwo();break;
+				}
+				break;
+			case "ifAChoiceOne":
+				switch(yourChoice){
+				case "c1": battle(); break;
+				case "c2": battle(); break;
+				case "c3": battle(); break;
+				case "c4": battle(); break;
+				}
+				break;
+			case "ifAChoiceTwo":
+				switch(yourChoice){
+				case "c1": battle(); break;
+				case "c2": battle(); break;
+				case "c3": battle(); break;
+				case "c4": battle(); break;
+				}
+				break;
+			case "ifBChoiceOne":
+				switch(yourChoice){
+				case "c1": battle(); break;
+				case "c2": battle(); break;
+				case "c3": battle(); break;
+				case "c4": battle(); break;
+				}
+				break;
+			case "ifBChoiceTwo":
+				switch(yourChoice){
+				case "c1": battle(); break;
+				case "c2": battle(); break;
+				case "c3": battle(); break;
+				case "c4": battle(); break;
+				}
+				break;
+			case "battle":
+				switch(yourChoice){
+				case "c1": continued(); break;
+				case "c2": replayIntroduction(); break;
+				case "c3": replayBattle(); break;
+				case "c4": quit(); break;
+				}
+				break;
 			}
-			
-			
-		}
+		}	
 	}
-
 }
+
