@@ -9,9 +9,18 @@ public class RhymeGame{
 	String word;
 	
 	ArrayList<String> rhymes=new ArrayList<String>();
+	
+	/**
+	 * Constructor to initialize word
+	 * @param w
+	 */
 	public RhymeGame(String w) {
-		word=w;
+		word = w;
 	}
+	/**
+	 * Method to create arraylist of words using the rhyme words 
+	 * from the website below
+	 */
 	public void getArray() {
 		try {
 			
@@ -38,29 +47,29 @@ public class RhymeGame{
 		}
 	}
 	
+	/**
+	 * Method to access words at random index
+	 * @return word at random index
+	 */
 	public static String getRandomWord() {
-		String word="";
+		String word = "";
 		try {
-			Scanner in=new Scanner(new File("words.txt"));
-			Random rand=new Random();
-			int a=rand.nextInt(10000);
-			for(int i=0; i<a;i++) {
+			Scanner in = new Scanner(new File("words.txt"));
+			Random rand = new Random();
+			int a = rand.nextInt(10000);
+			for(int i = 0; i < a; i++) {
 				in.next();
 			} 
-			word=in.next();
-			while((word.length()<5||word.contains("fuck")||word.contains("shit")||word.contains("pussy"))) {
-				word=in.next();
+			word = in.next();
+			while((word.length() < 5 || word.contains("fuck") || word.contains("shit") || word.contains("pussy"))) {
+				word = in.next();
 			}
 			return word;
-			
-					
 			}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 			return "a";
 		}
 		
-	}
-	
-	
+	}	
 }
