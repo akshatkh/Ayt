@@ -17,7 +17,7 @@ public class Game {
 	JFrame window;
 	Container con;
 	JPanel titlePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
-	JLabel titleLabel, cloutLabel, cloutLabelNumber, repectLabel, repectLabelNumber, cashLabel, cashLabelNumber;
+	JLabel titleLabel, cloutLabel, cloutLabelNumber, respectLabel, respectLabelNumber, cashLabel, cashLabelNumber;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 15);
@@ -28,16 +28,14 @@ public class Game {
 	
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	ChoiceHandler choiceHandler = new ChoiceHandler();
-	
-	
-
-
 
 	public static void main(String[] args) {
-
 		new Game();
 	}
 	
+	/**
+	 * Default constructor to create 
+	 */
 	public Game(){
 		
 		window = new JFrame();
@@ -73,6 +71,9 @@ public class Game {
 		con.add(startButtonPanel);
 	}
 	
+	/**
+	 * Method to build the screens for the game
+	 */
 	public void createGameScreen(){
 		
 		titlePanel.setVisible(false);
@@ -143,14 +144,14 @@ public class Game {
 		cloutLabelNumber.setFont(normalFont);
 		cloutLabelNumber.setForeground(Color.white);
 		playerPanel.add(cloutLabelNumber);
-		repectLabel = new JLabel("repect:");
-		repectLabel.setFont(normalFont);
-		repectLabel.setForeground(Color.white);
-		playerPanel.add(repectLabel);
-		repectLabelNumber = new JLabel();
-		repectLabelNumber.setFont(normalFont);
-		repectLabelNumber.setForeground(Color.white);
-		playerPanel.add(repectLabelNumber);
+		respectLabel = new JLabel("respect:");
+		respectLabel.setFont(normalFont);
+		respectLabel.setForeground(Color.white);
+		playerPanel.add(respectLabel);
+		respectLabelNumber = new JLabel();
+		respectLabelNumber.setFont(normalFont);
+		respectLabelNumber.setForeground(Color.white);
+		playerPanel.add(respectLabelNumber);
 		cashLabel = new JLabel("cash:");
 		cashLabel.setFont(normalFont);
 		cashLabel.setForeground(Color.white);
@@ -163,18 +164,26 @@ public class Game {
 		playerSetup();
 
 	}
+	
+	/**
+	 * Creates player that starts off with 0 clout, respect, and cash
+	 * and is not ready
+	 */
 	public void playerSetup(){
 		clout  =  0;
 		respect = 0;
 		cash = 0;
 		readiness  = "notready";
 		cloutLabelNumber.setText("" + clout);
-		repectLabelNumber.setText("" + respect);
+		respectLabelNumber.setText("" + respect);
 		cashLabelNumber.setText("" + cash);	
 		introduction();
 	}
 	
-	public void introduction(){
+	/**
+	 * Displays the introductory screen
+	 */
+	public void introduction() {
 		position = "introduction";
 		mainTextArea.setText("What’s good G? You the one who sent us that trash demo?");		
 		choice1.setText("Na G, all my tracks are heat.");
@@ -182,6 +191,10 @@ public class Game {
 		choice3.setText("");
 		choice4.setText("");
 	}
+	
+	/**
+	 * The pathway if the reader chooses option A
+	 */
 	public void ifA(){
 		position = "ifA";
 		mainTextArea.setText("I was just playing dawg, I ain’t even check you out yet, play something smt for me.");
@@ -251,9 +264,9 @@ public class Game {
 		position = "battle";
 		int count = 0;
 		
-			while(count<10) {
-				String b=RhymeGame.getRandomWord();
-				RhymeGame a=new RhymeGame(b);
+			while(count < 10) {
+				String b = RhymeGame.getRandomWord();
+				RhymeGame a = new RhymeGame(b);
 				
 				System.out.println(b);
 				a.getArray();
@@ -406,4 +419,3 @@ public class Game {
 		}	
 	}
 }
-
